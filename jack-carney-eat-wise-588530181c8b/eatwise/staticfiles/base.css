@@ -1,0 +1,49 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f8fbff, #d6e4f0);
+    color: #333;
+}
+
+header {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #004aad;
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+  width: 320px; /* Adjust size if necessary */
+  height: auto;
+}
+.nav-list {
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+
+.nav-list li {
+  display: inline;
+  margin-right: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.nav-list li a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-list li a:hover {
+  color: #ffecd2;
+}

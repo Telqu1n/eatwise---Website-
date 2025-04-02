@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block title %} eatwise-contact-us-page {% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'contact_us/contact_us.css' %}">
+{% endblock css %}
+
+{% block content %} 
+    <div class="thankyou">
+        <h1>Thank you for contacting us!</h1>
+        <p>We will get back to you as soon as possible.</p>
+    </div>
+{% endblock content %}

@@ -1,0 +1,84 @@
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Dropdown Filter */
+.dropdown {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.dropdown label {
+    margin-right: 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+.dropdown select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropdown select:hover {
+    border-color: #004aad;
+    background: #e7f1ff;
+}
+
+/* Section Titles */
+h2 {
+    font-size: 1.8rem;
+    color: #004aad;
+    margin: 20px 0 10px;
+    border-left: 4px solid #004aad;
+    padding-left: 10px;
+}
+
+/* Card Styles */
+.card {
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    border-radius: 12px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        height: 150px;
+        font-size: 1rem;
+    }
+}

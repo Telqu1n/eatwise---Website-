@@ -1,0 +1,49 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  {% block css_files %}  {% endblock css_files %}
+
+
+  <title>{% block title %}  {% endblock title %}</title>
+</head>
+<body>
+<header>
+  <a href="{% url 'home_page:home' %}"><img src="{% static 'images/logo.png' %}" alt="Thi is a orange logo with the words eatwise"></a>
+  <div id="navbar">
+    <ul>
+      <div class="nav-list">
+        <li><a href="{% url 'home_page:home' %}">Home</a></li>
+      </div>
+  
+      <div class="nav-list">
+        <li><a href="{% url 'recipes:recipe-page' %}">Recipes</a></li>
+      </div>
+  
+      <div class="nav-list">
+        <li><a href="{% url 'products:product-page' %}">Products</a></li>
+      </div>
+  
+      <div class="nav-list">
+        <li><a href="{% url 'users:login-page' %}">Login</a></li>
+      </div>
+
+      <div class="nav-list">
+        <li><a href="{% url 'users:users-profile' %}">My Profile</a></li>
+      </div>
+
+      <div class="nav-list">
+        <li><a href="{% url 'contact_us:contact-us' %}">Contact Us</a></li>
+      </div>
+    </ul>
+  </div>  
+</header>
+  {% block content %}
+    
+  {% endblock content %}
+</body>
+</html>

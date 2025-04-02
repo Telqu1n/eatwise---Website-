@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-home-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'eatwise_app/recipes.css' %}">
+{% endblock css_files %}
+</head>
+
+{% block content %}
+
+   <main>
+        <div class="container">
+
+            <h2>Best selling items</h2>
+            <div class="card"></div>
+
+            <h2>Most popular recipes</h2>
+            <div class="card"></div>
+        </div>
+    </main>
+{% endblock content %}    

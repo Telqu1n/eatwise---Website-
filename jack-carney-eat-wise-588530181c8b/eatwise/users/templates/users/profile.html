@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile Page{% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'users/profile.css' %}">
+{% endblock css_files %}
+
+
+{% block content %}
+    <div class="row my-3 p-3">
+        <h1>This is the profile page for {{user.username}}</h1>
+    </div>
+
+{% endblock content %}
