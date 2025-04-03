@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-recipe-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'eatwise_app/recipes_detail.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+<div class="content-container">
+    <div class="recipe-main">
+        <h1>{{ recipe.title }}</h1>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        <p>{{ recipe.description }}</p>
+
+        <h2>Ingredients</h2>
+        <ul class="ingredients-list">
+            {% for ingredient in recipe.ingredients.splitlines %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Directions</h2>
+        <ul class="directions-list">
+            {% for direction in recipe.directions.splitlines %}
+                <li>{{ direction }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="rating">
+            ⭐ {{ recipe.rating }}/5
+        </div>
+    </div>
+
+{% endblock content %}

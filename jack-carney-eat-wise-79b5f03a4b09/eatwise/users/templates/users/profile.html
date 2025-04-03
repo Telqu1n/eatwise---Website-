@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile Page{% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'users/profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock css_files %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-wrapper">
+        <!-- Left Sidebar -->
+        <div class="profile-sidebar">
+            <div class="profile-header">
+                <div class="profile-picture">
+                    <img src="{% static 'images/default_profile.png' %}" alt="Profile picture">
+                    <button class="upload-btn">
+                        <i class="fas fa-camera"></i> Upload New Photo
+                    </button>
+                </div>
+                <h3>admin</h3>
+                <p class="member-since">Member since February 2025</p>
+            </div>
+            
+            <nav class="profile-nav">
+                <a href="#" class="active"><i class="fas fa-user-circle"></i> Account Overview</a>
+                <a href="#"><i class="fas fa-receipt"></i> Order History</a>
+                <a href="#"><i class="fas fa-bookmark"></i> Saved Recipes</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="profile-content">
+            <div class="profile-card">
+                <h2><i class="fas fa-id-card"></i> Account Details</h2>
+                
+                <div class="details-grid">
+                    <div class="details-section">
+                        <h4><i class="fas fa-user"></i> Personal Information</h4>
+                        <div class="detail-item">
+                            <span>Username:</span>
+                            <strong>admin</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Email:</span>
+                            <strong>admin@admin.com</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="details-section">
+                        <h4><i class="fas fa-shield-alt"></i> Account Security</h4>
+                        <a href="#" class="security-item">
+                            <i class="fas fa-lock"></i> Change Password
+                        </a>
+                        <a href="#" class="security-item">
+                            <i class="fas fa-envelope"></i> Update Email
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="activity-section">
+                    <h4><i class="fas fa-history"></i> Recent Activity</h4>
+                    <div class="no-activity">
+                        <i class="far fa-clock"></i>
+                        <p>No recent activity to show</p>
+                    </div>
+                </div>
+                
+                <div class="logout-section">
+                    <form action="{% url 'users:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

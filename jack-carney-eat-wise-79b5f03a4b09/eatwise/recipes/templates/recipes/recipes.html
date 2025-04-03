@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-recipe-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'eatwise_app/recipes.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <!-- Enhanced Filter Section -->
+        <div class="category-filters">
+            <div class="filter-header">
+                <h3>Filter Recipes</h3>
+                <div class="filter-group">
+                    <input type="checkbox" id="select-all" checked>
+                    <label for="select-all">Select All</label>
+                </div>
+            </div>
+            
+            <div class="filter-options">
+                <div class="filter-group">
+                    <input type="checkbox" id="filter-general" name="diet-filter" value="general" checked>
+                    <label for="filter-general">General <span class="count-badge" id="count-general">0</span></label>
+                </div>
+                
+                <div class="filter-group">
+                    <input type="checkbox" id="filter-vegetarian" name="diet-filter" value="vegetarian" checked>
+                    <label for="filter-vegetarian">Vegetarian <span class="count-badge" id="count-vegetarian">0</span></label>
+                </div>
+                
+                <div class="filter-group">
+                    <input type="checkbox" id="filter-vegan" name="diet-filter" value="vegan" checked>
+                    <label for="filter-vegan">Vegan <span class="count-badge" id="count-vegan">0</span></label>
+                </div>
+                
+                <div class="filter-group">
+                    <input type="checkbox" id="filter-gluten-free" name="diet-filter" value="gluten-free" checked>
+                    <label for="filter-gluten-free">Gluten-Free <span class="count-badge" id="count-gluten-free">0</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Latest Recipes Section -->
+            <div class="products-grid">
+                {% for recipe in recipes %}
+                <div class="product" data-diet="{{ recipe.category|lower }}">
+                    <h3>{{ recipe.title }}</h3>
+                    <a href="{% url 'recipes:recipe-detail' recipe.slug %}">
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    </a>                        
+                    <p>Rating: ⭐ {{ recipe.rating }}</p>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <!-- Best Sellers Section -->
+            <div class="best-grid">
+                {% for recipe in best_sellers %}
+                <div class="product" data-diet="{{ recipe.category|lower }}">
+                    <h3>{{ recipe.title }}</h3>
+                    <a href="{% url 'recipes:recipe-detail' recipe.slug %}">
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    </a>
+                    <p>Rating: ⭐ {{ recipe.rating }}</p>
+                </div>
+                {% empty %}
+                <p>No best sellers available yet.</p>
+                {% endfor %}
+            </div>
+            
+            {% if user.is_authenticated %}
+            <p>Got a recipe you want to upload? Click <a href="{% url 'recipes:upload-recipe' %}" class="nav-item nav-link">here</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all elements
+        const checkboxes = document.querySelectorAll('input[name="diet-filter"]');
+        const selectAll = document.getElementById('select-all');
+        const products = document.querySelectorAll('.product');
+        const countElements = {
+            'general': document.getElementById('count-general'),
+            'vegetarian': document.getElementById('count-vegetarian'),
+            'vegan': document.getElementById('count-vegan'),
+            'gluten-free': document.getElementById('count-gluten-free')
+        };
+        
+        // Initialize counters
+        const categoryCounts = {
+            'general': 0,
+            'vegetarian': 0,
+            'vegan': 0,
+            'gluten-free': 0
+        };
+        
+        // Count recipes per category
+        products.forEach(product => {
+            const diet = product.dataset.diet;
+            if (categoryCounts.hasOwnProperty(diet)) {
+                categoryCounts[diet]++;
+            } else {
+                categoryCounts['general']++;
+            }
+        });
+        
+        // Update counter displays
+        for (const [category, count] of Object.entries(categoryCounts)) {
+            if (countElements[category]) {
+                countElements[category].textContent = count;
+            }
+        }
+        
+        // Select All functionality
+        selectAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+            filterRecipes();
+        });
+        
+        // Individual checkbox functionality
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Update Select All status
+                const allChecked = [...checkboxes].every(cb => cb.checked);
+                selectAll.checked = allChecked;
+                filterRecipes();
+            });
+        });
+        
+        // Filter function with animation
+        function filterRecipes() {
+            const selectedDiets = [...checkboxes]
+                .filter(cb => cb.checked)
+                .map(cb => cb.value.toLowerCase());
+            
+            products.forEach(product => {
+                const productDiet = product.dataset.diet.toLowerCase();
+                const shouldShow = selectedDiets.includes(productDiet);
+                
+                // Trigger animation
+                if (shouldShow && product.classList.contains('hidden')) {
+                    product.classList.remove('hidden');
+                    setTimeout(() => {
+                        product.style.display = 'block';
+                    }, 10);
+                } else if (!shouldShow && !product.classList.contains('hidden')) {
+                    product.classList.add('hidden');
+                    setTimeout(() => {
+                        product.style.display = 'none';
+                    }, 400); // Match this with CSS transition duration
+                }
+            });
+        }
+        
+        // Initial filter
+        filterRecipes();
+    });
+    </script>
+</main>
+{% endblock %}

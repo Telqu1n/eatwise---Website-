@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} eat-wise-login {% endblock title %} 
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'users/registration.css' %}">
+{% endblock css_files %}
+
+
+{% block content %}
+<form action="{% url 'users:registration-page' %}" method="POST">
+<div class="container">
+  <h2>Register</h2>
+</div>
+    {% csrf_token %} 
+
+    {% for field in form %} 
+    <div class="formDiv">
+      {{field.label}} 
+      {{field}}
+      {{field.errors}}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="registerbtn">Register</button>
+  </form>
+{% endblock content %}

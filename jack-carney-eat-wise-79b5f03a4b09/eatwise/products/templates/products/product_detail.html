@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-recipe-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'products/products_details.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+<div class="content-container">
+    <div class="recipe-main">
+        <h1>{{ product.name }}</h1>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <p>{{ product.description }}</p>
+
+        <div class="rating">
+            ⭐ {{ product.rating }}/5
+        </div>
+    </div>
+
+{% endblock content %}

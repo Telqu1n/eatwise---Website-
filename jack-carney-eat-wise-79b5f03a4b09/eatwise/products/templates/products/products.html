@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-products-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'products/products.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+
+<main>
+    <div class="container">
+        <div class="sidebar">
+            <div class="search-box">
+                <input type="text" placeholder="Search">
+                 <button type="submit">&#128269;</button>
+            </div>
+            <div class="dropdown">
+                <label for="diet-filter">Dietary filter:</label>
+                <select id="diet-filter">
+                    <option value="">Filter </option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="gluten-free">Gluten-Free</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Latest Stock Section -->
+            <div class="stock-container">
+                <h2>Latest Stock</h2>
+            </div>
+            
+            <div class="products-grid">
+                {% for product in products %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <a href="{% url 'products:product-detail' product.slug %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
+                    <p class="price">Price: £{{ product.price }}</p>
+                    <p>Rating: ⭐ {{ product.rating }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Best Sellers Section -->
+            <div class="stock-container">
+                <h2>Best Sellers</h2>
+            </div>
+            
+            <div class="best-grid">
+                {% for product in best_sellers %}
+                    {% if product.rating > 4.7 %}
+                    <div class="product">
+                        <h3>{{ product.name }}</h3>
+                        <a href="{% url 'products:product-detail' product.slug %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <p class="price">Price: £{{ product.price }}</p>
+                        <p>Rating: ⭐ {{ product.rating }}</p>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                <p>No best sellers available yet.</p>
+                {% endfor %}
+            </div>
+        </div>            
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} eatwise-home-page {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'home_page/home_page.css' %}">
+{% endblock css_files %}
+</head>
+
+{% block content %}
+
+   <main>
+        <div class="container">
+            <h2>Best selling items</h2>
+                <!-- Best Sellers Section -->
+            <div class="stock-container">
+            </div>            
+            <div class="best-grid">
+                {% for product in best_sellers %}
+                    {% if product.rating > 4.7 %}
+                    <div class="product">
+                        <h3>{{ product.name }}</h3>
+                        <a href="{% url 'products:product-detail' product.slug %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <p class="price">Price: £{{ product.price }}</p>
+                        <p>Rating: ⭐ {{ product.rating }}</p>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                <p>No best sellers available yet.</p>
+                {% endfor %}
+            </div>
+
+            <h2>Most popular recipes</h2>
+            <div class="best-grid">
+                {% for recipe in best_sellers_recipe %}
+                    {% if recipe.rating > 4.7 %}
+                    <div class="product">
+                        <h3>{{ recipe.title }}</h3>
+                        <a href="{% url 'recipes:recipe-detail' recipe.slug %}">
+                            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+                        </a>
+                        <p>Rating: ⭐ {{ recipe.rating }}</p>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                <p>No best sellers available yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock content %}    
